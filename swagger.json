@@ -1,0 +1,314 @@
+    
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0", 
+    "title": "MS Sql Project CRUD",
+    "description": "MSSql Project Application API" 
+  },
+  "host": "localhost:4000",
+  "basePath": "/api/v1.0",
+  "tags": [
+    {
+      "name": "Tutorials",
+      "description": "API for Tutorial in the system"
+    },
+    {
+      "name": "Users",
+      "description": "API for User in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/tutorials": {
+        "get": {
+          "tags": ["Tutorials"],
+          "summary": "Get all tutorial in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/tutorials"
+              }
+            }
+          }
+        }
+     },
+    "/tutorials/{id}": {
+        "get": {
+          "tags": ["Tutorials"],
+          "summary": "Get all tutorial in system",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of tutorial that we want to find",
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/tutorials"
+              }
+            }
+          }
+        }
+     },
+    "/tutorials/create": {
+      "post": {
+        "tags": ["Tutorials"],
+        "summary": "Create new tutorial in system",
+        "parameters": [{
+          "name": "Tutorial",
+          "in": "body",
+          "description": "Tutorial that we want to create",
+          "schema": {
+              "$ref": "#/definitions/tutorial"
+            }
+          }],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New tutprial is created",
+            "schema": {
+              "$ref": "#/definitions/tutorials"
+              }
+            }
+          }
+        }
+      },
+    "/tutorials/put/{id}": {
+      "put": {
+        "tags": ["Tutorials"],
+        "summary": "Update tutorial in system",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of tutorial that we want to Update",
+            "type": "integer"
+          },
+          {
+          "name": "Tutorial",
+          "in": "body",
+          "description": "Tutorial that we want to Upate",
+          "schema": {
+              "$ref": "#/definitions/tutorial"
+            }
+          }],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/tutorials"
+              }
+            }
+          }
+        }
+      },
+      "/tutorials/delete/{id}": {
+        "delete": {
+          "tags": ["Tutorials"],
+          "summary": "delete tutorial in system",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of tutorial that we want to delete",
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/result"
+              }
+            }
+          }
+        }
+     },  
+
+    "/users":{
+      "get":{
+        "tags": ["Users"],
+        "summary": "Get all the user in the system",
+        "responses":{
+          "200":{
+            "description": "OK",
+            "schema":{
+              "$ref":"#/definitions/users"
+              }
+            }
+          }
+        }
+      },
+    "/users/{username}":{
+      "get":{
+        "tags": ["Users"],
+        "summary": "Get all the user in the system",
+        "parameters": [{
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Enter username that we want to find",
+          "type": "string"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "OK",
+            "schema":{
+              "$ref":"#/definitions/users"
+              }
+            }
+          }
+        }
+      },
+
+
+    "users/create":{
+      "post":{
+        "tags":["Users"],
+        "summary":"Create new user in the system",
+        "parameters":[{
+          "name":"Users",
+          "in":"body",
+          "description":"User that we want to create",
+          "schema":{
+            "$ref":"#/definitions/user"
+          }
+        }],
+        "produces":["application/json"],
+        "responses":{
+          "200":{
+            "description":"OK",
+            "schema":{
+              "$ref":"#/definitions/users"
+              }
+            }
+          }
+        }
+      }
+  },
+  "definitions": {
+    "tutorials": {
+      "required": ["title", "id"],
+      "properties": {
+        "code": {
+            "type": "integer"
+        },
+        
+        "status":  {
+            "type": "boolean"
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "id": {
+                  "type": "integer",
+                  "uniqueItems": true
+                },
+                "title": { 
+                  "type": "string"                      
+                },
+                "description": { 
+                  "type": "string"
+                },
+                "published":  {
+                  "type": "boolean"
+                },
+                "createdAt": { 
+                  "type": "string"
+                },
+                "updatedAt": { 
+                  "type": "string"
+                }
+            }
+        },
+        "message": { 
+            "type": "string"
+        }
+      }
+    },
+    "tutorial":{
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": { 
+          "type": "string" 
+        },
+        "description": { 
+          "type": "string"
+        },
+        "published":  {
+          "type": "boolean"
+        }
+      }
+    },
+    "user":{
+      "type":"object",
+      "required":["username","password"],
+      "properties":{
+        "username":{
+          "type":"string"
+        },
+        "password":{
+          "type":"string"
+        }
+      }
+    },
+    "users":{
+      "type":"object",
+      "properties":{
+        "code": {
+          "type": "integer"
+        },
+        "status":  {
+            "type": "boolean"
+        },
+        "data":{
+          "type":"object",
+          "properties":{
+            "username":{
+              "type":"string"
+            },
+            "password":{
+              "type":"string"
+            },
+            "actived":{
+              "type":"boolean"
+            }
+          }
+        },
+        "message":{
+          "type":"string"
+        }
+      }
+    },
+    "result":{
+      "type":"object",
+      "properties":{
+        "code": {
+          "type": "integer"
+        },
+        "status":  {
+            "type": "boolean"
+        },
+        "message":{
+          "type":"string"
+        }
+      }
+    }
+
+  }
+}
+ 
